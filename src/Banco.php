@@ -7,7 +7,7 @@ abstract class Banco {
     private static string  $servidor = "localhost";
     private static string  $usuario = "root";
     private static string  $senha = "";
-    private static string  $banco = "microblog-inicial-ignacio";
+    private static string  $banco = "microblog_ignacio";
     /* private static \PDO $conexao;  Não precisa do use PDO*/
     private static PDO $conexao;
 
