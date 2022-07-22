@@ -20,14 +20,14 @@ CREATE TABLE usuarios(
 ```sql
 CREATE TABLE noticias(
     id MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    data DATETIME CURRENT_TIMESTAMP NOT NULL,
+    data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     titulo VARCHAR(150) NOT NULL,
     texto TEXT NOT NULL,
-    resumo TINYTEXT,
+    resumo TINYTEXT NOT NULL,
     imagem VARCHAR(45) NOT NULL,
-    destaque ENUM('sim','não') NOT NULL,
-    usuarios_id SMALLINT NOT NULL,
-    categorias_id TINYINT NOT NULL
+    destaque ENUM('sim','nao') NOT NULL,
+    usuario_id SMALLINT NULL,
+    categoria_id SMALLINT NULL
 
 );
 ```
@@ -45,6 +45,15 @@ CREATE TABLE categorias(
 
 ```sql
 -- Criação das chaves estrangeiras (Exercício)
-ALTER TABLE usuarios 
+ALTER TABLE noticias 
     ADD CONSTRAINT fk_noticias_usuarios
-    FOREIGN KEY (professor_id) REFERENCES professores(id);
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+    ON DELETE SET NULL ON UPDATE NO ACTION;
+
+ALTER TABLE noticias 
+    ADD CONSTRAINT fk_noticias_categorias
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+    ON DELETE SET NULL ON UPDATE NO ACTION;
+
+```
+<!-- ____________________________________________________________________ -->
