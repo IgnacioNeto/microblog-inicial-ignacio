@@ -46,10 +46,72 @@ final class  Usuario {
         die("Erro: ".$erro->getMessage());
     }
 }
+// _________________________________________________________________________________
+    public function listarUm():array {
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+    
+        } catch (Exception $erro){
+            die("Erro: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
+// _________________________________________________________________________________
+    public function atualizar():void {
+        $sql = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha, tipo = :tipo WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindParam(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $consulta->bindParam(":senha", $this->senha, PDO::PARAM_STR);
+            $consulta->bindParam(":tipo", $this->tipo, PDO::PARAM_STR);
+            $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+            $consulta->execute();
+    
+        } catch (Exception $erro){
+            die("Erro: ".$erro->getMessage());
+        }
+    }
+
+// _________________________________________________________________________________
 
 public function codificaSenha(string $senha):string {
     return password_hash($senha, PASSWORD_DEFAULT);
 }
+// _________________________________________________________________________________
+// Usamos a "password_verify" para comparar as 2 senhas.
+public function verificaSenha(string $senhaFormulario, string $senhaBanco):string {
+    if ( password_verify($senhaFormulario, $senhaBanco) ) {
+        // Se forem iguais, mantemos a senha existente no banco
+        return $senhaBanco;
+    } else {
+        // Se forem diferentes, então codificamos esta nova senha
+        return $this->codificaSenha($senhaFormulario);
+    }
+
+}
+
+// __________________________________________________
+
+function excluirUsuario():void {
+    $sql = "DELETE FROM usuarios WHERE id = :id ";
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $consulta->execute();
+
+    } catch (Exception $erro){
+        die("Erro: ".$erro->getMessage());
+    }
+}
+
+// _________________________________________________________________________________
 
 
 // Getters e Setters c/ filtros de sanitização
