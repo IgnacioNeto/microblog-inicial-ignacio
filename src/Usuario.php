@@ -82,7 +82,7 @@ final class  Usuario {
 // _________________________________________________________________________________
 
 public function codificaSenha(string $senha):string {
-    return password_hash($senha, PASSWORD_DEFAULT);
+    return password_hash($senha, PASSWORD_DEFAULT); // Algoritimo de cryptografia escolhido (PASSWORD_DEFAULT)
 }
 // _________________________________________________________________________________
 // Usamos a "password_verify" para comparar as 2 senhas.
@@ -109,6 +109,21 @@ public function excluirUsuario():void {
     } catch (Exception $erro){
         die("Erro: ".$erro->getMessage());
     }
+}
+// __________________________________________________
+// Buscando array ou boolean (quando achar ou não o usuario)
+public function buscar():array | bool {
+    $sql = "SELECT * FROM usuarios WHERE email = :email";
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindParam(':email', $this->email, PDO::PARAM_STR);
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+    } catch (Exception $erro){
+        die("Erro: ".$erro->getMessage());
+    }
+    return $resultado;
 }
 
 // _________________________________________________________________________________

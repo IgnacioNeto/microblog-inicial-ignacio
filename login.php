@@ -1,5 +1,19 @@
-<?php 
+<?php
+
+use Microblog\Usuario;
+use Microblog\Utilitarios;
+
 require_once "inc/cabecalho.php";
+
+/* Mensagens de feedback relacionados ao acesso */
+if( isset($_GET['acesso_proibido']) ){
+	$feedback = "❌ Você deve logar primeiro!";
+
+} elseif( isset($_GET['campos_obrigatorios']) ) {
+	$feedback = '❗ Você deve preencher os dois campos!';
+} elseif( isset($_GET['nao_encontrado']) ) {
+	$feedback = '❌ Usuário não encontrado!';
+}
 ?>
 
 
@@ -11,6 +25,7 @@ require_once "inc/cabecalho.php";
 
                 <?php if(isset($feedback)){?>
 				<p class="my-2 alert alert-warning text-center">
+					<?=$feedback?>
 				</p>
                 <?php } ?>
 
@@ -26,6 +41,46 @@ require_once "inc/cabecalho.php";
 				<button class="btn btn-primary btn-lg" name="entrar" type="submit">Entrar</button>
 
 			</form>
+<?php 
+if( isset($_POST['entrar']) ){
+	/* Verificação de campos vazios */
+	if(empty($_POST['email']) || empty($_POST['senha']) ){
+		header("location:login.php?campos_obrigatorios");
+
+	} else {
+		// Capturamos o e-mail informado
+		$usuario = new Usuario;
+		$usuario->setEmail($_POST['email']);
+
+		// Buscando um usuário no banco a partir do e-mail
+		$dados = $usuario->buscar();
+
+		// Teste
+		// Utilitarios::dump($dados);
+
+		/* Se dados for falso (ou seja, não tem dados de nenhum usuário cadastrado) */
+		// if($dados === false) (Mesma coisa abaixo)
+		if(!$dados){
+			// Então, fica no login e dá um feedback
+			header("location:login.php?nao_encontrado");
+
+		} else {
+			// Verificação de senha e login
+			if( password_verify($_POST['senha'], $dados['senha']) ){
+				echo "Pode entrar!";
+			} else {
+				echo "Cai fora!";
+			}
+		}
+
+	}
+
+}
+
+
+?>
+
+
     </div>
     
     
