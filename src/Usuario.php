@@ -99,7 +99,7 @@ public function verificaSenha(string $senhaFormulario, string $senhaBanco):strin
 
 // __________________________________________________
 
-function excluirUsuario():void {
+public function excluirUsuario():void {
     $sql = "DELETE FROM usuarios WHERE id = :id ";
     try {
         $consulta = $this->conexao->prepare($sql);
