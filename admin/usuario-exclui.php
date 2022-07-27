@@ -1,8 +1,16 @@
 <?php
 
+// Para testar a segurança digitar na URL (Navegador): 
+// http://localhost/microblog-inicial-ignacio/admin/usuario-exclui.php?id=2
+
+use Microblog\ControleDeAcesso;
 use Microblog\Usuario;
 
 require_once "../vendor/autoload.php";
+
+// Para proteger a página
+$sessao = new ControleDeAcesso;
+$sessao->verificaAcesso();
 
 // Criamos um objeto para poder acessar os recursos da classe
 $usuario = new Usuario; // Não esqueça do autoload e do namespace
