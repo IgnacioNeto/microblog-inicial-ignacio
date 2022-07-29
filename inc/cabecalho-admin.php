@@ -47,14 +47,21 @@ $pagina = basename($_SERVER['PHP_SELF']);
             <li class="nav-item">
                 <a class="nav-link" href="meu-perfil.php">Meu perfil</a>
             </li>
+
+            <!-- Se o usuário for do tipo "admin", mostre Categorias e Usuários -->
             <?php if($_SESSION['tipo'] == 'admin') { ?>
+
             <li class="nav-item">
+
                 <a class="nav-link" href="categorias.php">Categorias</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="usuarios.php">Usuários</a>
             </li>
+
+            <!-- Fechamento da condicional -->
             <?php } ?>
+
             <li class="nav-item">
                 <a class="nav-link" href="noticias.php">Notícias</a>
             </li>
