@@ -10,6 +10,7 @@ require_once "../vendor/autoload.php";
 
 // Para proteger a página
 $sessao = new ControleDeAcesso;
+$sessao->verificaAcessoAdmin();
 $sessao->verificaAcesso();
 
 // Criamos um objeto para poder acessar os recursos da classe

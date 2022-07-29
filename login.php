@@ -18,7 +18,9 @@ if( isset($_GET['acesso_proibido']) ){
 	$feedback = '❌ Senha incorreta!';
 } elseif( isset($_GET['logout']) ) {
 	$feedback = '🔐 Você saiu do sistema!!';
-}
+} elseif( isset($_GET['nao-autorizado']) ) {
+	$feedback = '🔐 Não autorizado!!';
+} 
 ?>
 
 

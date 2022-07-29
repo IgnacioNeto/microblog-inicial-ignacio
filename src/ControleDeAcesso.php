@@ -32,12 +32,20 @@ final class ControleDeAcesso {
 
     }
     public function logout():void{
-        /* Logout */
+         /* Logout */
          session_start();
          session_destroy();
          header("location:../login.php?logout");
          die(); // exit
 
+    }
+    public function verificaAcessoAdmin():void {
+        if( $_SESSION['tipo'] !== 'admin'){
+               /* Usado se o usuário tentar acessar algo que não pertence ao seu perfil (Ex_editor) */
+               // Teste (http://localhost/microblog-inicial-ignacio/admin/categorias.php)
+               header("location:nao-autorizado.php");
+               die(); // exit
+            }
     }
 
 }
