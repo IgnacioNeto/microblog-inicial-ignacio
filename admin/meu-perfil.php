@@ -1,8 +1,49 @@
 <?php 
+
+use Microblog\Usuario;
+use Microblog\Utilitarios;
+
+
 require_once "../inc/cabecalho-admin.php";
+
+$usuario = new Usuario;
+$usuario->setId($_SESSION['id']);
+$dados = $usuario->listarUm();
+
+
+if(isset($_POST['atualizar'])) {
+	$usuario->setNome($_POST['nome']);
+	$usuario->setEmail($_POST['email']);
+	$usuario->setTipo($_SESSION['tipo']);
+
+	/* 
+	Se o campo senha no formulario estiver vazio significa que o
+	usuario NÃO MUDOU A SENHA.
+	*/
+	if( empty($_POST['senha']) ){
+		// Teste
+		// echo "Campo vazio, então senha não será alterada...";
+		$usuario->setSenha( $dados['senha'] );
+		// Teste
+		// echo $usuario->getSenha();
+	} else {
+	/* 
+	Caso contrário, se o usuário digitou alguma coisa
+	no campo senha, precisaremos verificar o que foi digitado
+	*/
+		// Teste
+		// echo "Digitou alguma coisa";
+		$usuario->setSenha(
+			$usuario->verificaSenha($_POST['senha'], $dados['senha'])
+		);
+	}
+
+	$usuario->atualizar();
+	header("location:index.php?perfil-atualizado");
+
+}
 ?>
-
-
+<!-- ___________________________________________________________ -->
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
@@ -14,12 +55,12 @@ require_once "../inc/cabecalho-admin.php";
 
 			<div class="mb-3">
 				<label class="form-label" for="nome">Nome:</label>
-				<input class="form-control" type="text" id="nome" name="nome" required>
+				<input class="form-control" type="text" id="nome" name="nome" value="<?=$dados['nome']?>" required>
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="email">E-mail:</label>
-				<input class="form-control" type="email" id="email" name="email" required>
+				<input class="form-control" type="email" id="email" name="email" value="<?=$dados['email']?>" required>
 			</div>
 
 			<div class="mb-3">
