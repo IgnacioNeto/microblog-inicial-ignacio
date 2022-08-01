@@ -1,5 +1,6 @@
 <?php 
 
+// Instanciar objeto abaixo
 use Microblog\Usuario;
 use Microblog\Utilitarios;
 
@@ -10,29 +11,24 @@ $usuario = new Usuario;
 $usuario->setId($_SESSION['id']);
 $dados = $usuario->listarUm();
 
+// Teste
+// Utilitarios::dump($dados);
+
 
 if(isset($_POST['atualizar'])) {
 	$usuario->setNome($_POST['nome']);
+	
+	// Atualizamos o valor da variável de sessão ao pegar o novo nome
+	$_SESSION['nome'] = $usuario->getNome();
+
 	$usuario->setEmail($_POST['email']);
 	$usuario->setTipo($_SESSION['tipo']);
 
-	/* 
-	Se o campo senha no formulario estiver vazio significa que o
-	usuario NÃO MUDOU A SENHA.
-	*/
 	if( empty($_POST['senha']) ){
-		// Teste
-		// echo "Campo vazio, então senha não será alterada...";
+
 		$usuario->setSenha( $dados['senha'] );
-		// Teste
-		// echo $usuario->getSenha();
+
 	} else {
-	/* 
-	Caso contrário, se o usuário digitou alguma coisa
-	no campo senha, precisaremos verificar o que foi digitado
-	*/
-		// Teste
-		// echo "Digitou alguma coisa";
 		$usuario->setSenha(
 			$usuario->verificaSenha($_POST['senha'], $dados['senha'])
 		);
