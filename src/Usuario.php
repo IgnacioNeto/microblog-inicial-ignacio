@@ -194,5 +194,10 @@ public function buscar():array | bool {
         $this->tipo = filter_var($tipo, FILTER_SANITIZE_SPECIAL_CHARS);
 
     }
+// ________________________________________________
+    public function getConexao(): PDO
+    {
+        return $this->conexao;
+    }
 }
 
