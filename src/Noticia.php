@@ -68,4 +68,99 @@ final class Noticia {
 
     }
     
+// ________________________________________________________________
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+
+    }
+// ________________________________________________________________
+
+    public function getTitulo(): string
+    {
+        return $this->titulo;
+    }
+
+  
+    public function setTitulo(string $titulo)
+    {
+        $this->titulo = filter_var($titulo, FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    }
+// ________________________________________________________________
+ 
+    public function getTexto(): string
+    {
+        return $this->texto;
+    }
+
+ 
+    public function setTexto(string $texto)
+    {
+        $this->texto = filter_var($texto, FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    }
+// ________________________________________________________________
+
+    public function getResumo(): string
+    {
+        return $this->resumo;
+    }
+
+
+    public function setResumo(string $resumo)
+    {
+        $this->resumo = filter_var($resumo, FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    }
+// ________________________________________________________________
+ 
+    public function getImagem(): string
+    {
+        return $this->imagem;
+    }
+
+
+    public function setImagem(string $imagem)
+    {
+        $this->imagem = filter_var($imagem, FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    }
+// ________________________________________________________________
+ 
+    public function getDestaque(): string
+    {
+        return $this->destaque;
+    }
+
+  
+    public function setDestaque(string $destaque)
+    {
+        $this->destaque = filter_var($destaque, FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    }
+// ________________________________________________________________
+
+    public function getCategoriaId(): string
+    {
+        return $this->categoriaId;
+    }
+
+
+    public function setCategoriaId(string $categoriaId)
+    {
+        $this->categoriaId = filter_var($categoriaId , FILTER_SANITIZE_NUMBER_INT);
+
+
+    }
 }
