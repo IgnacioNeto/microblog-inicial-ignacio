@@ -67,6 +67,33 @@ final class Noticia {
 
 
     }
+
+    public function upload(array $arquivo) {
+        // Definindo os formatos aceitos
+        $tiposValidos = [
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "image/svg+xml"
+        ];
+
+    if(!in_array($arquivo['type'], $tiposValidos) ) {
+            die("
+            <script>
+            alert('Formato inválido!');
+            history.back();
+            </script>"
+            );
+
+        } else {
+            die("
+            <script>
+            alert('Formato válido!');
+            history.back();
+            </script>"
+            );
+        }
+    }
     
 // ________________________________________________________________
     public function getId(): int
