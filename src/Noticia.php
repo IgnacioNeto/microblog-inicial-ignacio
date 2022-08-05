@@ -104,6 +104,20 @@ final class Noticia {
         move_uploaded_file($temporario, $destino);
     }
     
+    public function listar():array {
+        // Se o tipo de usuário logado for admin
+        if( $this->usuario->getTipo() === 'admin') {
+            // Então ele poderá acessar as notícias de todo mundo
+            $sql = "";
+
+        } else {
+            // Senão (ou seja, é editor), este usuário (editor)
+            // poderá acessar SOMENTE suas próprias notícias
+            $sql = "";
+        }
+
+    }
+    
 // ________________________________________________________________
     public function getId(): int
     {
