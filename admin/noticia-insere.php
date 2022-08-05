@@ -38,6 +38,9 @@ if( isset($_POST['inserir'])) {
 	a parte que se refere ao nome/extensão do arquivo */
 	$noticia->setImagem($imagem['name']);
 
+	$noticia->inserir();
+	header("location:noticias.php");
+
 	// Utilitarios::dump($imagem);
 
 }
