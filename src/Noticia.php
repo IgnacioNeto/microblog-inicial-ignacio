@@ -108,15 +108,38 @@ final class Noticia {
         // Se o tipo de usuário logado for admin
         if( $this->usuario->getTipo() === 'admin') {
             // Então ele poderá acessar as notícias de todo mundo
-            $sql = "";
+            $sql = "SELECT 
+            noticias.id, noticias.titulo,
+            noticias.data, noticias.destaque,
+            usuarios.nome AS autor 
+            FROM noticias LEFT JOIN usuarios /* Se usar INNER JOIN ao apagar o usuário a notícia não aparece, usar LEFT pois a noticia esta a esq. */
+            ON noticias.usuario_id = usuarios.id
+            ORDER BY data DESC";
+            // Obs: noticias.usuario_id (FK- Foreign key) e usuarios.id (PK-Primary Key)
 
         } else {
             // Senão (ou seja, é editor), este usuário (editor)
             // poderá acessar SOMENTE suas próprias notícias
-            $sql = "";
+            $sql = "SELECT id, titulo, data, destaque FROM noticias WHERE usuario_id = :usuario_id ORDER BY data DESC";
         }
+        try {
+            $consulta = $this->conexao->prepare($sql);
 
-    }
+            /* Se NÃO FOR um usuário admin, então trate o parâmetro de
+             usuario trate o parâmetro de usuario_id antes de exexutar */
+            if ($this->usuario->getTipo() !== 'admin') {
+            $consulta->bindValue(":usuario_id", $this->usuario->getId(), PDO::PARAM_INT);
+        }
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (Exception $erro){
+            die("Erro: ".$erro->getMessage());
+        }
+        
+        return $resultado;
+
+    } // Final do listar
     
 // ________________________________________________________________
     public function getId(): int
