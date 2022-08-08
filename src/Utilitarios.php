@@ -9,8 +9,8 @@
         var_dump($dados);
         echo "</pre>";
     }
-    
-    public static function data($dados) {
+
+    public static function formataData($dados) {
         return date('d/m/Y H:i', strtotime($dados));
     }
 }

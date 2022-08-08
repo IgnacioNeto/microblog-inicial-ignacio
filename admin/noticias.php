@@ -54,7 +54,7 @@ $listaDeNoticias = $noticia->listar();
 				<?php foreach($listaDeNoticias as $noticia){ ?>
 					<tr>
                         <td> <?=$noticia['titulo']?> </td>
-                        <td> <?=Utilitarios::data($noticia['data'])?> </td>
+                        <td> <?=Utilitarios::formataData($noticia['data'])?> </td>
 
 						<?php if($_SESSION['tipo'] === 'admin') { ?>
 						
@@ -69,8 +69,7 @@ $listaDeNoticias = $noticia->listar();
 							<a class="btn btn-warning" 
 							href="noticia-atualiza.php?id=<?=$noticia['id']?>">
 							<i class="bi bi-pencil"></i> Atualizar
-							</a>
-						
+							</a>		
 						</td>
 						<td>
 							<a class="btn btn-danger excluir" 
