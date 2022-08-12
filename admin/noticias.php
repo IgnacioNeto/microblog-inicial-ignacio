@@ -61,9 +61,15 @@ $listaDeNoticias = $noticia->listar();
 							<!-- ?? Operador de Coalescência Nula:
 							Na prática, o valor à esquerda é exibido, (desde que ele
 							exista), caso contrário o valor a direita é exibido -->
-                        	<td> <?=$noticia['autor'] ?? "<i>Equipe Microblog</i>"?> </td>
-						
-						<?php } ?>
+                        	
+							<?php
+							if ( $noticia['autor'] ) { ?>
+							<td><?=Utilitarios::limitaCaractere($noticia['autor'])?></td> 
+							<?php
+								} else {
+							?> <td>Equipe Microblog</td> <?php
+								}
+							} ?>
 						
 						<td class="text-center">
 							<a class="btn btn-warning" 
