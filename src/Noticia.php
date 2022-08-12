@@ -140,6 +140,49 @@ final class Noticia {
         return $resultado;
 
     } // Final do listar
+
+    public function listarUm():array {
+        
+        if( $this->usuario->getTipo() === 'admin') {
+            
+            $sql = "SELECT
+            titulo, texto, resumo, imagem, usuario_id, categoria_id, destaque
+            FROM noticias WHERE id = :id";
+
+        } else {
+
+            $sql = "SELECT
+            titulo, texto, resumo, imagem, usuario_id, categoria_id, destaque
+            FROM noticias
+            WHERE id = :id AND usuario_id = :usuario_id";
+        }
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            // parametro id da noticia
+
+            $consulta->bindParam(
+                ":id",
+                $this->id,
+                PDO::PARAM_INT);
+
+            if ($this->usuario->getTipo() !== 'admin') {
+    
+            // parametro usuario_id
+            $consulta->bindValue(
+                ":usuario_id",
+                $this->usuario->getId(),
+                PDO::PARAM_INT);
+        }
+        $consulta->execute();
+        $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+        } catch (Exception $erro){
+            die("Erro: ".$erro->getMessage());
+        }
+        
+        return $resultado;
+
+    } // Final do listarUm
     
 // ________________________________________________________________
     public function getId(): int

@@ -45,6 +45,7 @@ $listaDeNoticias = $noticia->listar();
 							<th>Autor</th>
 						<?php } ?>
 
+						<th class="text-center">Destaque</th>
 						<th class="text-center" colspan="2">Operações</th>
 						
 					</tr>
@@ -71,6 +72,8 @@ $listaDeNoticias = $noticia->listar();
 								}
 							} ?>
 						
+							<td class="text-center"><?=$noticia['destaque']?></td>
+
 						<td class="text-center">
 							<a class="btn btn-warning" 
 							href="noticia-atualiza.php?id=<?=$noticia['id']?>">
