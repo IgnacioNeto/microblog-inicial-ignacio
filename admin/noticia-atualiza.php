@@ -16,14 +16,30 @@ $dados = $noticia->listarUm();
 
 // Utilitarios::dump($dados);
 
+if( isset($_POST['atualizar'])) {
+	$noticia->setTitulo($_POST['titulo']);
+	$noticia->setTexto($_POST['texto']);
+	$noticia->setResumo($_POST['resumo']);
+	$noticia->setDestaque($_POST['destaque']);
+	$noticia->setCategoriaId($_POST['categoria']);
 
+/* Lógica/Algoritmo para atualizar a foto se necessário */
 
+/* Se o campo imagem estiver vazio, então significa que o
+usuário NÃO QUER TROCAR DE IMAGEM. Ou seja, vamos manter a 
+imagem existente */
+if( empty($_FILES['imagem']['name'] )) {
+    $noticia->setImagem($_POST['imagem-existente']);
+} else {
+    /* Senão, então pegamos a referência (nome e extensão) da imagem 
+    e fazemos o processo de upload e envio desta referência para o banco */
+    $noticia->upload($_FILES['imagem']);
+    $noticia->setImagem($_FILES['imagem']['name']);
+}
 
-
-
-
-
-
+$noticia->atualizar();
+header("location:noticias.php");
+}
 
 ?>
 
@@ -84,10 +100,16 @@ $dados = $noticia->listarUm();
 
             <div class="mb-3">
                 <p>Deixar a notícia em destaque?
-                    <input type="radio" class="btn-check" name="destaque" id="nao" autocomplete="off" checked value="nao">
+                    <input type="radio" class="btn-check" name="destaque" id="nao" autocomplete="off"
+                    <?php if ($dados['destaque'] === 'nao') echo 'checked' ?>
+                    value="nao">
+
                     <label class="btn btn-outline-danger" for="nao">Não</label>
 
-                    <input type="radio" class="btn-check" name="destaque" id="sim" autocomplete="off" value="sim">
+                    <input type="radio" class="btn-check" name="destaque" id="sim" autocomplete="off"
+                    <?php if ($dados['destaque'] === 'sim') echo 'checked' ?>
+                    value="sim">
+
                     <label class="btn btn-outline-success" for="sim">Sim</label>
                 </p>
             </div>
