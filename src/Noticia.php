@@ -317,6 +317,31 @@ return $resultado;
 
 }
 
+public function listarPorCategoria():array {
+    $sql = "SELECT
+        noticias.id, noticias.titulo,
+        noticias.data, noticias.resumo,
+        usuarios.nome AS autor,
+        categorias.nome AS categoria
+    FROM noticias 
+        LEFT JOIN usuarios ON noticias.usuario_id = usuarios.id
+        INNER JOIN categorias ON noticias.categoria_id = categorias.id
+    WHERE noticias.categoria_id = :categoria_id";
+    
+try {
+    $consulta = $this->conexao->prepare($sql);
+    $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+    $consulta->execute();
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+} catch (Exception $erro){
+    die("Erro: ".$erro->getMessage());
+}
+return $resultado;
+
+
+}
+
     
 // ________________________________________________________________
     public function getId(): int
