@@ -25,8 +25,10 @@ $dados = $noticia->listarDetalhes();
             </time> - <span><?=$dados['autor'] ?? "<i>Equipe <Microblog</i>"?></span>
         </p>
         <img src="imagem/<?=$dados['imagem']?>" alt="" class="float-start pe-2 img-fluid">
-        <p><?=$dados['texto']?>.</p>
-
+        <p>
+            <?= Utilitarios::formataTexto($dados['texto']) ?>
+        </p>
+        
     </article>
     
 
