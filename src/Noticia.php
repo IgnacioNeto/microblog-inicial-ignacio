@@ -259,6 +259,64 @@ public function excluirNoticia():void {
         die("Erro: ".$erro->getMessage());
     }
 }
+// ________________________________________________________________
+// Métodos para a área publica do site
+
+public function listarDestaques():array {
+    $sql = "SELECT titulo, imagem, resumo, id FROM noticias
+    WHERE destaque = :destaque ORDER BY data DESC";
+
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindParam(':destaque', $this->destaque, PDO::PARAM_STR);
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $erro){
+        die("Erro: ".$erro->getMessage());
+    }
+    return $resultado;
+}
+
+public function listarTodas():array {
+    $sql = "SELECT data, titulo, resumo, id FROM noticias
+    ORDER BY data DESC";
+
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (Exception $erro){
+        die("Erro: ".$erro->getMessage());
+    }
+    return $resultado;
+}
+
+public function listarDetalhes():array {
+    $sql = "SELECT
+    noticias.id, noticias.titulo, noticias.data,
+    noticias.texto, noticias.imagem,
+    usuarios.nome AS autor
+    FROM noticias LEFT JOIN usuarios
+    ON noticias.usuario_id = usuarios.id
+    WHERE noticias.id = :id";
+    
+try {
+    $consulta = $this->conexao->prepare($sql);
+    $consulta->bindParam(":id", $this->id, PDO::PARAM_INT);
+    $consulta->execute();
+    $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+
+} catch (Exception $erro){
+    die("Erro: ".$erro->getMessage());
+}
+return $resultado;
+
+
+
+}
+
     
 // ________________________________________________________________
     public function getId(): int
