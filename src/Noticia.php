@@ -238,13 +238,13 @@ final class Noticia {
 
 public function excluirNoticia():void {
     if($this->usuario->getTipo() === 'admin') {
-
+        // O administrador pode apagar qualquer notícia
         $sql = "DELETE FROM noticias WHERE id = :id ";
 
     } else {
+        // O editor só pode apagar as notícias dele mesmo
         $sql = "DELETE FROM noticias WHERE id = :id AND usuario_id = :usuario_id";
     }
-
 
     try {
         $consulta = $this->conexao->prepare($sql);

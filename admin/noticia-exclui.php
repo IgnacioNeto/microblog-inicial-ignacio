@@ -10,7 +10,7 @@ $sessao = new ControleDeAcesso;
 $sessao->verificaAcesso();
 
 // Criamos um objeto para poder acessar os recursos da classe
-$noticia = new Noticia; // Não esqueça do autoload e do namespace
+$noticia = new Noticia; // Não esqueça do autoload e do namespace (Objeto da noticia)
 
 // Obtemos o ID da url e o passamos para o setter
 $noticia->setId($_GET['id']);
