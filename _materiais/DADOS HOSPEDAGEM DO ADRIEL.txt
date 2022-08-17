@@ -1,0 +1,25 @@
+-ENDEREÇOS:
+lucas.sunioweb.com.br
+matheus.sunioweb.com.br
+antonio.sunioweb.com.br
+gabrielg.sunioweb.com.br
+palloma.sunioweb.com.br
+adriel.sunioweb.com.br
+rafael.sunioweb.com.br
+luna.sunioweb.com.br
+rodrigo.sunioweb.com.br
+guilherme.sunioweb.com.br
+veronica.sunioweb.com.br
+marcelo.sunioweb.com.br
+ignacio.sunioweb.com.br
+thiago.sunioweb.com.br
+
+-ACESSO CPANEL
+link: https://www.hostgator.com.br/login
+email: adrieldiasdossantoslira@hotmail.com
+senha: $bolo>=10?"muitoBom":"errou"
+
+
+No terminal para remover (Para versão online)
+composer remove twbs/bootstrap
+composer remove twbs/bootstrap-icons
