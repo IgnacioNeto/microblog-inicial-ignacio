@@ -1,9 +1,12 @@
 <?php
+ob_start(); // Monitora os redirecionamentos do servidor (Para não dar erro ao logar no admin)
 
 use Microblog\Categoria;
+use Microblog\Noticia;
 
 require_once "vendor/autoload.php";
 $categoria = new Categoria;
+$noticia = new Noticia;
 $listaDeCategorias = $categoria->listar();
 
 ?>

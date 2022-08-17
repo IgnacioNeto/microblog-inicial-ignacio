@@ -30,3 +30,5 @@ switch($pagina){
 ?>
 </body>
 </html>
+<!-- Encerra o monitoramento de redirecionamentos do servidor -->
+<?php ob_end_flush();?> 

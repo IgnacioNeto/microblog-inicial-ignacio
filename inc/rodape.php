@@ -11,3 +11,5 @@
 <script src="vendor/twbs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<!-- Encerra o monitoramento de redirecionamentos do servidor -->
+<?php ob_end_flush();?>

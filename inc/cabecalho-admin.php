@@ -1,5 +1,5 @@
 <?php
-
+ob_start();// Monitora os redirecionamentos do servidor (Para não dar erro ao logar no admin)
 use Microblog\ControleDeAcesso;
 
 require_once "../vendor/autoload.php";
