@@ -1,5 +1,6 @@
 <?php
-ob_start();// Monitora os redirecionamentos do servidor (Para não dar erro ao logar no admin)
+/* Inicialização do Output Buffer */
+ob_start(); // Gerenciamento da memória de saídas e redirecionamentos do servidor (Para não dar erro ao logar na área admin)
 use Microblog\ControleDeAcesso;
 
 require_once "../vendor/autoload.php";
