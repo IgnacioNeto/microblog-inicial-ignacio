@@ -342,6 +342,17 @@ return $resultado;
 
 }
 
+public function busca():array {
+    // LIKE Não é tão restritivo como o = (igual)
+    $sql = "SELECT titulo, data, resumo, id FROM noticias
+    WHERE
+    titulo LIKE :termo, 
+    texto LIKE :termo,
+    resumo LIKE :termo
+    ORDER BY data DESC";
+
+}
+
     
 // ________________________________________________________________
     public function getId(): int
