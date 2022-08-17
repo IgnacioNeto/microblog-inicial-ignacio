@@ -18,7 +18,7 @@ $dados = $noticia->listarDetalhes();
         <h2> <?=$dados['titulo']?></h2>
 
         <p class="font-weight-light">
-            <time>
+            <time datetime="<?=$dados['data']?>">
                 <?=Utilitarios::formataData($dados['data'])?>
             </time> - <span><?=$dados['autor'] ?? "<i>Equipe <Microblog</i>"?></span>
         </p>
