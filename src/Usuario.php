@@ -112,7 +112,8 @@ public function excluirUsuario():void {
 }
 // __________________________________________________
 // Buscando array ou boolean (quando achar ou não o usuario)
-public function buscar():array | bool {
+// public function buscar():array | bool { (Deu problema ao subir para hospedagem Hostgator)
+    public function buscar():array {
     $sql = "SELECT * FROM usuarios WHERE email = :email";
     try {
         $consulta = $this->conexao->prepare($sql);
